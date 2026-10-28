@@ -12,7 +12,9 @@ def extract_text(file):
         text = ""
         with pdfplumber.open(file) as pdf:
             for page in pdf.pages:
-                text += page.extract_text() + "\n"
+                page_text = page.extract_text()   # may return None for image-only pages
+                if page_text:
+                    text += page_text + "\n"
         return text
 
     elif name.endswith(".docx"):
